@@ -161,6 +161,28 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
 
+  // Fetch images from MongoDB Atlas API on mount
+  useEffect(() => {
+    const fetchMongoImages = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/images');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            const mapped = json.data.map((doc: any) => ({
+              ...doc,
+              id: doc._id || doc.id,
+            }));
+            setImages(mapped);
+          }
+        }
+      } catch (err) {
+        console.log('MongoDB server offline, using local state store:', err);
+      }
+    };
+    fetchMongoImages();
+  }, []);
+
   // Sync to localStorage
   useEffect(() => {
     try {
@@ -319,16 +341,47 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       throw new Error('Upload access is restricted to Administrators only.');
     }
 
+    let finalUrl = imageInput.url;
+    let mongoId = `img-admin-${Date.now()}`;
+
+    try {
+      // Send to backend Node/Express server for Cloudinary & MongoDB Atlas persistence
+      const apiRes = await fetch('http://localhost:5000/api/images/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...imageInput,
+          imageBase64: imageInput.url.startsWith('data:') ? imageInput.url : undefined,
+          authorId: currentUser.id,
+          authorName: currentUser.name,
+          authorUsername: currentUser.username,
+          authorAvatar: currentUser.avatar,
+        }),
+      });
+
+      if (apiRes.ok) {
+        const json = await apiRes.json();
+        if (json.success && json.data) {
+          finalUrl = json.data.url;
+          mongoId = json.data._id || json.data.id || mongoId;
+        }
+      }
+    } catch (err) {
+      console.warn('Backend server upload offline, using client fallback:', err);
+    }
+
     const newImage: ImageItem = {
       ...imageInput,
-      id: `img-admin-${Date.now()}`,
+      url: finalUrl,
+      id: mongoId,
       authorId: currentUser.id,
       authorName: currentUser.name,
       authorUsername: currentUser.username,
       authorAvatar: currentUser.avatar,
       likesCount: 0,
       downloadsCount: 0,
-      status: 'approved', // Admin direct upload is immediately approved
+      sharesCount: 0,
+      status: 'approved',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

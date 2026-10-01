@@ -1,0 +1,6 @@
+{
+  "name": "Lumina Stock - Image Platform & Admin Studio",
+  "description": "Discover, download, like, and share high-resolution photography. Complete user dashboard, creator upload with moderation, and unified admin control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

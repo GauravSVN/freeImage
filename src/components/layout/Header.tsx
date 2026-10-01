@@ -43,27 +43,27 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-3 z-40 w-full bg-transparent transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Floating Dark Island Capsule Navbar */}
-        <div className="bg-[#18181b] border border-slate-800/90 rounded-full px-3.5 py-1.5 shadow-xl flex items-center justify-between">
-          {/* Zone 1: Logo Wordmark in White Capsule Circle Pill */}
+        {/* Floating Light Island Capsule Navbar */}
+        <div className="bg-white/90 backdrop-blur-md border border-slate-200/90 rounded-full px-3.5 py-1.5 shadow-lg shadow-slate-200/50 flex items-center justify-between transition-all">
+          {/* Zone 1: Logo Wordmark in Dark Pill */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveView('landing')}
-              className="flex items-center gap-2 bg-white text-slate-950 px-4 py-1.5 rounded-full font-serif-display font-bold text-sm tracking-tight hover:bg-slate-100 transition-all shadow-xs cursor-pointer"
+              className="flex items-center gap-2 bg-slate-950 text-white px-4 py-1.5 rounded-full font-serif-display font-bold text-sm tracking-tight hover:bg-slate-800 transition-all shadow-xs cursor-pointer"
             >
-              <span className="w-2 h-2 rounded-full bg-slate-950 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>FreeImage Pro</span>
             </button>
           </div>
 
-          {/* Zone 2: Navigation Links inside Dark Capsule */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 text-xs font-medium text-white/80">
+          {/* Zone 2: Navigation Links inside Light Capsule */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2 text-xs font-medium text-slate-600">
             <button
               onClick={() => setActiveView('landing')}
               className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                 activeView === 'landing'
-                  ? 'bg-white/15 text-white font-bold shadow-xs'
-                  : 'text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-slate-900 text-white font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
               Discover
@@ -72,8 +72,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveView('explore')}
               className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                 activeView === 'explore'
-                  ? 'bg-white/15 text-white font-bold shadow-xs'
-                  : 'text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-slate-900 text-white font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
               Photos & Explore
@@ -82,8 +82,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveView('categories')}
               className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                 activeView === 'categories'
-                  ? 'bg-white/15 text-white font-bold shadow-xs'
-                  : 'text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-slate-900 text-white font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
               Categories
@@ -92,15 +92,15 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setActiveView('about')}
               className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                 activeView === 'about'
-                  ? 'bg-white/15 text-white font-bold shadow-xs'
-                  : 'text-white/70 hover:text-white hover:bg-white/10'
+                  ? 'bg-slate-900 text-white font-bold shadow-xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-100'
               }`}
             >
               About & License
             </button>
           </nav>
 
-          {/* Zone 3: Actions in White Pill Container */}
+          {/* Zone 3: Actions in Pill Container */}
           <div className="flex items-center gap-2">
             {/* Admin Dashboard shortcut button if admin */}
             {isAdmin && (
@@ -109,10 +109,10 @@ export const Header: React.FC<HeaderProps> = ({
                 className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full transition-all border ${
                   activeView === 'admin-dashboard'
                     ? 'bg-amber-500 text-white border-amber-500 shadow-xs'
-                    : 'bg-amber-400/20 text-amber-300 border-amber-500/30 hover:bg-amber-400/30'
+                    : 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100'
                 }`}
               >
-                <Shield className="w-3.5 h-3.5 text-amber-400" />
+                <Shield className="w-3.5 h-3.5 text-amber-600" />
                 <span>Admin Studio</span>
                 {pendingImages.length > 0 && (
                   <span className="w-4 h-4 rounded-full bg-rose-600 text-white text-[10px] flex items-center justify-center font-bold">
@@ -126,15 +126,15 @@ export const Header: React.FC<HeaderProps> = ({
             {isAdmin && (
               <button
                 onClick={onOpenUpload}
-                className="px-3.5 py-1.5 text-xs font-semibold text-slate-950 bg-white hover:bg-slate-100 rounded-full transition-all cursor-pointer shadow-xs whitespace-nowrap active:scale-95"
+                className="px-3.5 py-1.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-full transition-all cursor-pointer shadow-xs whitespace-nowrap active:scale-95"
               >
                 Upload
               </button>
             )}
 
-            {/* User Account / Sign In in White Pill Container (Matches reference image) */}
+            {/* User Account / Sign In in Pill Container */}
             {!isAuthenticated ? (
-              <div className="flex items-center bg-white text-slate-950 rounded-full px-1.5 py-1 shadow-xs border border-white/20">
+              <div className="flex items-center bg-slate-100 text-slate-950 rounded-full px-1.5 py-1 shadow-xs border border-slate-200">
                 <button
                   onClick={() => onOpenAuth('login')}
                   className="px-3 py-1 text-xs font-semibold text-slate-700 hover:text-slate-950 transition-colors whitespace-nowrap"
@@ -143,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
                 <button
                   onClick={() => onOpenAuth('register')}
-                  className="px-4 py-1 text-xs font-bold text-white bg-slate-950 hover:bg-slate-850 rounded-full shadow-xs transition-all whitespace-nowrap cursor-pointer active:scale-95"
+                  className="px-4 py-1 text-xs font-bold text-white bg-slate-950 hover:bg-slate-800 rounded-full shadow-xs transition-all whitespace-nowrap cursor-pointer active:scale-95"
                 >
                   Join Free
                 </button>

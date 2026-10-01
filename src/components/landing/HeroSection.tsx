@@ -17,7 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onSearch, trendingKeyw
   };
 
   return (
-    <div className="relative -mt-20 pt-24 sm:pt-28 pb-16 sm:pb-24 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="relative -mt-20 pt-36 sm:pt-44 md:pt-48 pb-16 sm:pb-24 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Subtle atmospheric backdrop lighting */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-emerald-500/30 rounded-full blur-3xl" />
